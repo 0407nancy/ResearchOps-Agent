@@ -11,6 +11,7 @@ allowed-tools:
   - task_reader
   - task_writer
   - context_builder
+  - report_writer
   - ask_clarification
   - read_file
   - write_file
@@ -46,6 +47,7 @@ If the user says "I completed A", mark A as `done`. If the user says "B is block
 4. `note_loader`, `task_reader`
 5. `memory_search`, `memory_writer`, `task_writer`
 6. `context_builder`
+7. `report_writer`
 
 ## Output Structure
 

@@ -11,6 +11,7 @@ allowed-tools:
   - task_reader
   - task_writer
   - context_builder
+  - report_writer
   - ask_clarification
   - read_file
   - write_file
@@ -49,7 +50,7 @@ If `time_range` is missing, call `researchops_check_hitl` and then `ask_clarific
 5. `note_loader`, `task_reader`
 6. `memory_search`, `memory_writer`, `task_writer`
 7. `context_builder`
-8. Future phases: `report_writer`
+8. `report_writer`
 
 ## Output Structure
 

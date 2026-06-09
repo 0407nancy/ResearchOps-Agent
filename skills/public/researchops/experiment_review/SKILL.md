@@ -12,6 +12,7 @@ allowed-tools:
   - task_reader
   - task_writer
   - context_builder
+  - report_writer
   - ask_clarification
   - read_file
   - write_file
@@ -49,6 +50,7 @@ If the project or experiment target is ambiguous, ask clarification through the 
 5. `note_loader`, `log_parser`
 6. `memory_search`, `memory_writer`, `task_writer`
 7. `context_builder`
+8. `report_writer`
 
 ## Output Structure
 

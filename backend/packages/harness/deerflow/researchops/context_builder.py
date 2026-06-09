@@ -42,12 +42,20 @@ def build_context_packet(
     for memory_type in INTENT_MEMORY_TYPES[normalized_intent]:
         if memory_type == MemoryType.TASK:
             continue
-        for record in store.search_memory(
+        records = store.search_memory(
             query=query,
             memory_type=memory_type,
             project_id=project,
             limit=memory_limit,
-        ):
+        )
+        if query.strip() and not records:
+            records = store.search_memory(
+                query="",
+                memory_type=memory_type,
+                project_id=project,
+                limit=memory_limit,
+            )
+        for record in records:
             if record.id not in seen_ids:
                 memories.append(record)
                 seen_ids.add(record.id)

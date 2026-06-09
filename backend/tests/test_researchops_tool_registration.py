@@ -59,6 +59,11 @@ def test_researchops_tools_load_through_deerflow_registry():
                 group="researchops",
                 use="deerflow.researchops.tools.context_builder_tool:context_builder_tool",
             ),
+            ToolConfig(
+                name="report_writer",
+                group="researchops",
+                use="deerflow.researchops.tools.report_writer:report_writer_tool",
+            ),
         ],
     )
 
@@ -75,4 +80,5 @@ def test_researchops_tools_load_through_deerflow_registry():
     assert "task_reader" in names
     assert "task_writer" in names
     assert "context_builder" in names
+    assert "report_writer" in names
     assert "ask_clarification" in names

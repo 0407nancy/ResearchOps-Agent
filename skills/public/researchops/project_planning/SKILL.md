@@ -11,6 +11,7 @@ allowed-tools:
   - task_reader
   - task_writer
   - context_builder
+  - report_writer
   - ask_clarification
   - read_file
   - write_file
@@ -47,6 +48,7 @@ If multiple projects match, ask clarification and preserve the original intent.
 4. `note_loader`, `task_reader`
 5. `memory_search`, `memory_writer`, `task_writer`
 6. `context_builder`
+7. `report_writer`
 
 ## Output Structure
 
