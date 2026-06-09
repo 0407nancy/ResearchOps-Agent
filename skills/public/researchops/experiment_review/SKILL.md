@@ -5,6 +5,8 @@ allowed-tools:
   - classify_research_intent
   - researchops_check_hitl
   - researchops_resume_pending
+  - memory_search
+  - memory_writer
   - ask_clarification
   - read_file
   - write_file
@@ -39,7 +41,8 @@ If the project or experiment target is ambiguous, ask clarification through the 
 2. `classify_research_intent`
 3. `researchops_check_hitl`
 4. `read_file`, `grep`, `ls`
-5. Future phases: `log_parser`, `memory_search`, `memory_writer`
+5. `memory_search`, `memory_writer`
+6. Future phases: `log_parser`
 
 ## Output Structure
 

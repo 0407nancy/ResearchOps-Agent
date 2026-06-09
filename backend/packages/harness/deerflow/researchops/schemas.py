@@ -20,6 +20,16 @@ class RiskLevel(StrEnum):
     HIGH = "high"
 
 
+class MemoryType(StrEnum):
+    PROJECT = "ProjectMemory"
+    EXPERIMENT = "ExperimentMemory"
+    PAPER = "PaperMemory"
+    DECISION = "DecisionMemory"
+    PREFERENCE = "PreferenceMemory"
+    RESOURCE = "ResourceMemory"
+    TASK = "TaskMemory"
+
+
 class IntentResult(BaseModel):
     intent: ResearchIntent
     confidence: float = Field(ge=0.0, le=1.0)
@@ -76,4 +86,26 @@ class PendingCheckpoint(BaseModel):
     updated_at: str
 
 
-TaskStatus = Literal["todo", "in_progress", "blocked", "done", "dropped"]
+class TaskStatus(StrEnum):
+    TODO = "todo"
+    IN_PROGRESS = "in_progress"
+    BLOCKED = "blocked"
+    DONE = "done"
+    DROPPED = "dropped"
+
+
+class ResearchMemoryRecord(BaseModel):
+    id: str
+    type: MemoryType
+    project_id: str | None = None
+    title: str
+    summary: str = ""
+    content: dict = Field(default_factory=dict)
+    tags: list[str] = Field(default_factory=list)
+    evidence_refs: list[str] = Field(default_factory=list)
+    confidence: float = Field(default=1.0, ge=0.0, le=1.0)
+    importance: int = Field(default=3, ge=1, le=5)
+    status: str = "active"
+    created_at: str
+    updated_at: str
+    supersedes_id: str | None = None
