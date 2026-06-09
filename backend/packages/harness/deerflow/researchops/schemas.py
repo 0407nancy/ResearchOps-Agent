@@ -141,3 +141,13 @@ class ContextPacket(BaseModel):
     source_chunks: list[SourceChunk] = Field(default_factory=list)
     tasks: list[ResearchMemoryRecord] = Field(default_factory=list)
     evidence_table: list[EvidenceRef] = Field(default_factory=list)
+
+
+class Claim(BaseModel):
+    text: str
+    evidence_refs: list[str] = Field(default_factory=list)
+
+
+class VerifiedClaim(Claim):
+    support_status: Literal["supported", "weakly_supported", "unsupported"]
+    matched_evidence_refs: list[str] = Field(default_factory=list)

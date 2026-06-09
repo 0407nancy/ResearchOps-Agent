@@ -58,6 +58,8 @@ def test_write_progress_summary_report_with_required_sections_and_evidence(tmp_p
     assert "## Evidence" in markdown
     assert "note:weekly.md#L1-L4" in markdown
     assert result.evidence_count >= 3
+    assert result.claim_count >= 1
+    assert result.unsupported_claim_count >= 0
 
 
 def test_report_writer_tool_writes_markdown_file(tmp_path: Path):

@@ -7,6 +7,7 @@ from typing import Any
 
 from pydantic import BaseModel
 
+from deerflow.researchops.evidence.verifier import extract_claims, verify_claims
 from deerflow.researchops.schemas import ContextPacket, ResearchIntent, ResearchMemoryRecord
 
 
@@ -16,6 +17,8 @@ class ReportResult(BaseModel):
     output_format: str
     evidence_count: int
     required_sections_present: bool
+    claim_count: int = 0
+    unsupported_claim_count: int = 0
 
 
 REQUIRED_SECTIONS: dict[ResearchIntent, list[str]] = {
@@ -38,6 +41,7 @@ def write_report(
     output_path.mkdir(parents=True, exist_ok=True)
 
     markdown = render_report(context_packet=context_packet, output_format=output_format, log_summary=log_summary)
+    verified_claims = verify_claims(claims=extract_claims(markdown), evidence_table=context_packet.evidence_table)
     filename = _build_filename(context_packet=context_packet, output_format=output_format)
     path = output_path / filename
     path.write_text(markdown, encoding="utf-8")
@@ -49,6 +53,8 @@ def write_report(
         output_format=output_format,
         evidence_count=len(context_packet.evidence_table),
         required_sections_present=all(f"## {section}" in markdown for section in sections),
+        claim_count=len(verified_claims),
+        unsupported_claim_count=sum(1 for claim in verified_claims if claim.support_status == "unsupported"),
     )
 
 
