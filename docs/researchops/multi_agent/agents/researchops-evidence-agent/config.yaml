@@ -1,0 +1,9 @@
+name: researchops-evidence-agent
+description: ResearchOps specialist for claim extraction and evidence verification
+tool_groups:
+  - researchops
+  - file:read
+skills:
+  - researchops-progress-summary
+  - researchops-experiment-review
+  - researchops-knowledge-qa

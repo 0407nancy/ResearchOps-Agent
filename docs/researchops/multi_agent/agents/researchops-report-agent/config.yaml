@@ -1,0 +1,9 @@
+name: researchops-report-agent
+description: ResearchOps specialist for drafting progress summaries and experiment reports from ContextPacket
+tool_groups:
+  - researchops
+  - file:read
+  - file:write
+skills:
+  - researchops-progress-summary
+  - researchops-experiment-review

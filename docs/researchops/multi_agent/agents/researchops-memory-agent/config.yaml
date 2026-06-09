@@ -1,0 +1,9 @@
+name: researchops-memory-agent
+description: ResearchOps specialist for typed memory retrieval, dedupe, and consolidation proposals
+tool_groups:
+  - researchops
+  - file:read
+skills:
+  - researchops-progress-summary
+  - researchops-project-planning
+  - researchops-task-tracking
