@@ -15,6 +15,7 @@ allowed-tools:
   - report_writer
   - eval_runner
   - session_trace_writer
+  - tool_policy_check
   - ask_clarification
   - read_file
   - write_file

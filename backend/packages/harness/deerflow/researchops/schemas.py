@@ -151,3 +151,11 @@ class Claim(BaseModel):
 class VerifiedClaim(Claim):
     support_status: Literal["supported", "weakly_supported", "unsupported"]
     matched_evidence_refs: list[str] = Field(default_factory=list)
+
+
+class ToolPolicyDecision(BaseModel):
+    tool_name: str
+    risk_level: RiskLevel
+    requires_approval: bool
+    reason: str
+    allowed_without_approval: bool
