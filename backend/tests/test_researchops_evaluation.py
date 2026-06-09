@@ -67,6 +67,17 @@ def test_eval_2_metrics_compute_slots_context_claims_and_sessions():
     assert multi_turn_state_accuracy(session_rows) == 1.0
 
 
+def test_slot_f1_ignores_unannotated_gold_slots():
+    rows = [
+        {
+            "gold": {"intent": "PROGRESS_SUMMARY", "time_range": "this_week"},
+            "prediction": {"intent": "PROGRESS_SUMMARY", "time_range": "this_week", "output_format": "meeting_prep"},
+        }
+    ]
+
+    assert slot_f1(rows) == 1.0
+
+
 def test_run_eval_cases_covers_intent_clarification_task_and_report(tmp_path: Path):
     cases_path = tmp_path / "eval_queries.jsonl"
     cases_path.write_text(

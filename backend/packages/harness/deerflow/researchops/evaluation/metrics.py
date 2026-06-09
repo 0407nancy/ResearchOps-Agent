@@ -87,7 +87,7 @@ def slot_f1(rows: Sequence[dict[str, Any]]) -> float:
         gold = row.get("gold", {})
         pred = row.get("prediction", {})
         gold_pairs = {(key, gold[key]) for key in slot_keys if gold.get(key) is not None}
-        pred_pairs = {(key, pred[key]) for key in slot_keys if pred.get(key) is not None}
+        pred_pairs = {(key, pred[key]) for key in slot_keys if gold.get(key) is not None and pred.get(key) is not None}
         if not gold_pairs and not pred_pairs:
             scores.append(1.0)
             continue
