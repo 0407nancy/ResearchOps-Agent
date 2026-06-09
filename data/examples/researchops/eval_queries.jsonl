@@ -1,0 +1,20 @@
+{"id":"intent_001","input":"根据这周记录生成组会汇报","task":"intent","gold":{"intent":"PROGRESS_SUMMARY","output_format":"meeting_prep"}}
+{"id":"intent_002","input":"帮我整理一下今天的科研进展","task":"intent","gold":{"intent":"PROGRESS_SUMMARY","time_range":"today"}}
+{"id":"intent_003","input":"这个实验失败了，帮我复盘下一步该看什么","task":"intent","gold":{"intent":"EXPERIMENT_REVIEW"}}
+{"id":"intent_004","input":"根据我的研究方向规划下周任务","task":"intent","gold":{"intent":"PROJECT_PLANNING","time_range":"next_week"}}
+{"id":"intent_005","input":"解释一下 LangGraph checkpoint 和 interrupt 的区别","task":"intent","gold":{"intent":"KNOWLEDGE_QA"}}
+{"id":"clarify_001","input":"帮我整理 OpenClaw RL 的进展","task":"clarification","gold":{"intent":"PROGRESS_SUMMARY","need_user_input":true,"missing_slots":["time_range"]}}
+{"id":"clarify_002","input":"生成 ResearchOps-Agent 的正式周报","task":"clarification","gold":{"intent":"PROGRESS_SUMMARY","need_user_input":true,"missing_slots":["time_range"]}}
+{"id":"clarify_003","input":"把任务 A 标记一下","task":"clarification","gold":{"intent":"TASK_TRACKING","need_user_input":true,"missing_slots":["task_operation"]}}
+{"id":"task_001","input":"我今天完成了 intent 分类，但 memory store 还没做","task":"task_tracking","gold":{"intent":"TASK_TRACKING","task_updates":[{"title":"intent 分类","status":"done"},{"title":"memory store","status":"todo"}]}}
+{"id":"task_002","input":"context builder 卡住了","task":"task_tracking","gold":{"intent":"TASK_TRACKING","task_updates":[{"title":"context builder","status":"blocked"}]}}
+{"id":"task_003","input":"完成了 report writer","task":"task_tracking","gold":{"intent":"TASK_TRACKING","task_updates":[{"title":"report writer","status":"done"}]}}
+{"id":"report_001","input":"把最近实验结果整理成周报","task":"report","gold":{"intent":"PROGRESS_SUMMARY","required_sections":["进展","问题与阻塞","下一步"],"min_evidence":1}}
+{"id":"report_002","input":"根据这周记录生成组会汇报","task":"report","gold":{"intent":"PROGRESS_SUMMARY","required_sections":["进展","问题与阻塞","下一步"],"min_evidence":1}}
+{"id":"report_003","input":"帮我做一次实验复盘","task":"report","gold":{"intent":"EXPERIMENT_REVIEW","required_sections":["实验目标","实验现象","失败假设","下一步排查"],"min_evidence":0}}
+{"id":"report_004","input":"规划 ResearchOps-Agent 下一阶段开发","task":"report","gold":{"intent":"PROJECT_PLANNING","required_sections":["当前状态","优先级判断","阶段计划","下一步"],"min_evidence":1}}
+{"id":"memory_001","input":"ResearchOps-Agent eval seed","task":"memory_recall","gold":{"project_id":"researchops_agent","memory_type":"ProjectMemory","memory_ids":[]}}
+{"id":"intent_006","input":"把最近的实验结果整理成周报","task":"intent","gold":{"intent":"PROGRESS_SUMMARY","output_format":"weekly_report"}}
+{"id":"intent_007","input":"这个项目怎么包装成简历项目更好","task":"intent","gold":{"intent":"PROJECT_PLANNING"}}
+{"id":"intent_008","input":"OpenClaw RL 的 TODO 还有哪些","task":"intent","gold":{"intent":"TASK_TRACKING"}}
+{"id":"intent_009","input":"这篇论文的方法和我的项目有什么关系","task":"intent","gold":{"intent":"KNOWLEDGE_QA"}}

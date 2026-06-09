@@ -55,6 +55,32 @@ def _progress_output_format(text: str) -> str:
     return "progress_summary"
 
 
+def _is_progress_summary_request(text: str) -> bool:
+    return _contains_any(text, ("进展", "总结", "汇报", "日报", "周报", "组会", "summary", "report"))
+
+
+def _is_task_tracking_request(text: str) -> bool:
+    return _contains_any(text, ("完成了", "还没做", "todo", "待办", "任务列表", "标记", "卡住", "阻塞", "blocked", "done"))
+
+
+def _is_project_planning_request(text: str) -> bool:
+    return _contains_any(text, ("规划", "计划", "路线", "优先级", "下一步", "简历", "roadmap"))
+
+
+def _is_experiment_review_request(text: str) -> bool:
+    return _contains_any(text, ("失败", "复盘", "日志", "error", "报错", "排查", "实验复盘", "failure"))
+
+
+def _extract_task_operation(text: str) -> str | None:
+    if _contains_any(text, ("查看", "列表", "还有哪些", "todo", "待办")):
+        return "read"
+    if _contains_any(text, ("创建", "新增", "添加")):
+        return "create"
+    if _contains_any(text, ("完成了", "还没做", "卡住", "阻塞", "blocked", "done")):
+        return "update"
+    return None
+
+
 def _missing_slots(intent: ResearchIntent, project: str | None, time_range: str | None, task_operation: str | None) -> list[str]:
     missing: list[str] = []
     if intent in {
@@ -76,23 +102,29 @@ def classify_intent(user_input: str) -> IntentResult:
     project = _extract_project(text)
     time_range = _extract_time_range(text)
 
-    if _contains_any(text, ("完成了", "还没做", "todo", "任务", "卡住", "阻塞", "blocked", "done")):
+    if _is_task_tracking_request(text):
         intent = ResearchIntent.TASK_TRACKING
         output_format = "task_update"
-        task_operation = "update"
+        task_operation = _extract_task_operation(text)
         confidence = 0.86
         risk = RiskLevel.MEDIUM
-    elif _contains_any(text, ("失败", "复盘", "日志", "error", "报错", "排查", "实验")):
+    elif _is_experiment_review_request(text):
         intent = ResearchIntent.EXPERIMENT_REVIEW
         output_format = "experiment_review"
         task_operation = None
         confidence = 0.84
         risk = RiskLevel.LOW
-    elif _contains_any(text, ("规划", "计划", "路线", "优先级", "下一步", "roadmap")):
+    elif _is_project_planning_request(text):
         intent = ResearchIntent.PROJECT_PLANNING
         output_format = "project_plan"
         task_operation = None
         confidence = 0.82
+        risk = RiskLevel.LOW
+    elif _is_progress_summary_request(text):
+        intent = ResearchIntent.PROGRESS_SUMMARY
+        output_format = _progress_output_format(text)
+        task_operation = None
+        confidence = 0.86
         risk = RiskLevel.LOW
     elif _contains_any(text, ("解释", "是什么", "为什么", "架构", "论文", "技术", "concept", "qa")):
         intent = ResearchIntent.KNOWLEDGE_QA

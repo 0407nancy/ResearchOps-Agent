@@ -12,6 +12,7 @@ allowed-tools:
   - task_writer
   - context_builder
   - report_writer
+  - eval_runner
   - ask_clarification
   - read_file
   - write_file
