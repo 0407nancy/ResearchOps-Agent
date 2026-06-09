@@ -166,3 +166,22 @@ def multi_turn_state_accuracy(rows: Sequence[dict[str, Any]]) -> float:
         pred_tasks = {(item["title"], item["status"]) for item in row.get("prediction", {}).get("final_tasks", [])}
         scores.append(1.0 if not gold_tasks else len(gold_tasks & pred_tasks) / len(gold_tasks))
     return sum(scores) / len(scores)
+
+
+def multi_agent_plan_accuracy(rows: Sequence[dict[str, Any]]) -> float:
+    if not rows:
+        return 0.0
+    scores = []
+    for row in rows:
+        gold = row.get("gold", {})
+        pred = row.get("prediction", {})
+        if pred.get("use_multi_agent") != gold.get("use_multi_agent"):
+            scores.append(0.0)
+            continue
+        gold_agents = set(gold.get("agents", []))
+        pred_agents = {agent.get("name") for agent in pred.get("agents", [])}
+        if not gold_agents:
+            scores.append(1.0 if not pred_agents else 0.0)
+        else:
+            scores.append(len(gold_agents & pred_agents) / len(gold_agents))
+    return sum(scores) / len(scores)

@@ -16,6 +16,7 @@ from deerflow.researchops.evaluation.metrics import (
     context_recall,
     evidence_coverage,
     memory_recall_at_k,
+    multi_agent_plan_accuracy,
     multi_turn_state_accuracy,
     report_completeness,
     slot_f1,
@@ -25,6 +26,7 @@ from deerflow.researchops.evaluation.metrics import (
 from deerflow.researchops.hitl import check_clarification_or_confirmation
 from deerflow.researchops.intent import classify_intent
 from deerflow.researchops.memory_store import ResearchMemoryStore
+from deerflow.researchops.multi_agent import plan_specialist_agents
 from deerflow.researchops.report_writer import write_report
 from deerflow.researchops.schemas import MemoryType, ResearchIntent, TaskStatus
 from deerflow.researchops.state_store import ResearchOpsStateStore
@@ -73,6 +75,8 @@ def _run_cases(*, cases: list[dict[str, Any]], work_dir: str | Path) -> EvalResu
             prediction = _predict_evidence(case)
         elif task == "session":
             prediction = _predict_session(case)
+        elif task == "multi_agent":
+            prediction = _predict_multi_agent(case)
         else:
             prediction = {"error": f"Unsupported eval task: {task}"}
         rows.append({"id": case["id"], "task": task, "input": _case_input(case), "gold": case["gold"], "prediction": prediction})
@@ -91,6 +95,7 @@ def _run_cases(*, cases: list[dict[str, Any]], work_dir: str | Path) -> EvalResu
         "claim_support_precision": claim_support_precision(by_task.get("evidence", [])),
         "unsupported_claim_rate": unsupported_claim_rate(by_task.get("evidence", [])),
         "multi_turn_state_accuracy": multi_turn_state_accuracy(by_task.get("session", [])),
+        "multi_agent_plan_accuracy": multi_agent_plan_accuracy(by_task.get("multi_agent", [])),
     }
     return EvalResult(total=len(rows), metrics=metrics, rows=rows)
 
@@ -204,6 +209,19 @@ def _predict_session(case: dict[str, Any]) -> dict[str, Any]:
                 final_tasks.append(update)
                 seen.add(key)
     return {"final_tasks": final_tasks}
+
+
+def _predict_multi_agent(case: dict[str, Any]) -> dict[str, Any]:
+    intent = classify_intent(case["input"])
+    formal_output = intent.output_format in {"weekly_report", "meeting_prep", "experiment_review"}
+    plan = plan_specialist_agents(
+        intent_result=intent,
+        source_chunk_count=6 if formal_output else 0,
+        memory_count=4 if formal_output else 1,
+        require_formal_report=formal_output,
+        require_evidence_verification=formal_output,
+    )
+    return plan.model_dump(mode="json")
 
 
 def _extract_task_updates(user_input: str) -> list[dict[str, str]]:

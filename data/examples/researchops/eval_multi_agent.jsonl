@@ -1,0 +1,4 @@
+{"id":"multi_agent_001","input":"根据这周记录生成正式组会汇报","task":"multi_agent","gold":{"intent":"PROGRESS_SUMMARY","use_multi_agent":true,"agents":["researchops-memory-agent","researchops-report-agent","researchops-evidence-agent"]}}
+{"id":"multi_agent_002","input":"把最近实验结果整理成周报","task":"multi_agent","gold":{"intent":"PROGRESS_SUMMARY","use_multi_agent":true,"agents":["researchops-memory-agent","researchops-report-agent","researchops-evidence-agent"]}}
+{"id":"multi_agent_003","input":"我完成了 report writer","task":"multi_agent","gold":{"intent":"TASK_TRACKING","use_multi_agent":false,"agents":[]}}
+{"id":"multi_agent_004","input":"解释一下 LangGraph checkpoint","task":"multi_agent","gold":{"intent":"KNOWLEDGE_QA","use_multi_agent":false,"agents":[]}}

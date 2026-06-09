@@ -7,6 +7,7 @@ from deerflow.researchops.evaluation.metrics import (
     context_recall,
     evidence_coverage,
     multi_turn_state_accuracy,
+    multi_agent_plan_accuracy,
     report_completeness,
     slot_f1,
 )
@@ -65,6 +66,21 @@ def test_eval_2_metrics_compute_slots_context_claims_and_sessions():
     assert context_recall(context_rows) == 0.5
     assert claim_support_precision(claim_rows) == 0.5
     assert multi_turn_state_accuracy(session_rows) == 1.0
+
+
+def test_multi_agent_plan_accuracy_checks_agent_names_and_decision():
+    rows = [
+        {
+            "gold": {"use_multi_agent": True, "agents": ["researchops-memory-agent", "researchops-report-agent"]},
+            "prediction": {"use_multi_agent": True, "agents": [{"name": "researchops-memory-agent"}, {"name": "researchops-report-agent"}]},
+        },
+        {
+            "gold": {"use_multi_agent": False, "agents": []},
+            "prediction": {"use_multi_agent": False, "agents": []},
+        },
+    ]
+
+    assert multi_agent_plan_accuracy(rows) == 1.0
 
 
 def test_slot_f1_ignores_unannotated_gold_slots():
@@ -128,6 +144,19 @@ def test_run_eval_suite_loads_multiple_eval_files_and_reports_new_metrics(tmp_pa
     assert "context_recall" in result.metrics
     assert "claim_support_precision" in result.metrics
     assert "multi_turn_state_accuracy" in result.metrics
+
+
+def test_run_eval_suite_includes_multi_agent_task(tmp_path: Path):
+    (tmp_path / "eval_multi_agent.jsonl").write_text(
+        '{"id":"multi_agent_001","input":"根据这周记录生成正式组会汇报","task":"multi_agent","gold":{"intent":"PROGRESS_SUMMARY","use_multi_agent":true,"agents":["researchops-report-agent","researchops-evidence-agent"]}}\n'
+        '{"id":"multi_agent_002","input":"我完成了 report writer","task":"multi_agent","gold":{"intent":"TASK_TRACKING","use_multi_agent":false,"agents":[]}}\n',
+        encoding="utf-8",
+    )
+
+    result = run_eval_suite(suite_dir=tmp_path, work_dir=tmp_path / "work")
+
+    assert result.total == 2
+    assert result.metrics["multi_agent_plan_accuracy"] == 1.0
 
 
 def test_context_eval_falls_back_to_project_type_records_when_query_misses(tmp_path: Path):
