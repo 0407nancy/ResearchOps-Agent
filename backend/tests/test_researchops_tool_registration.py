@@ -79,6 +79,11 @@ def test_researchops_tools_load_through_deerflow_registry():
                 group="researchops",
                 use="deerflow.researchops.tools.tool_policy_tools:tool_policy_check_tool",
             ),
+            ToolConfig(
+                name="multi_agent_plan",
+                group="researchops",
+                use="deerflow.researchops.tools.multi_agent_tools:multi_agent_plan_tool",
+            ),
         ],
     )
 
@@ -99,4 +104,5 @@ def test_researchops_tools_load_through_deerflow_registry():
     assert "eval_runner" in names
     assert "session_trace_writer" in names
     assert "tool_policy_check" in names
+    assert "multi_agent_plan" in names
     assert "ask_clarification" in names

@@ -66,6 +66,29 @@ docs/researchops/
 - `report_writer`
 - `eval_runner`
 - `session_trace_writer`
+- `tool_policy_check`
+- `multi_agent_plan`
+
+## Optional Multi-Agent Layer
+
+ResearchOps-Agent keeps the DeerFlow lead agent as the single owner of user interaction, HITL, final output, and memory writes. Multi-agent collaboration is optional and only used for complex or formal outputs.
+
+Specialist agent templates live in:
+
+```text
+docs/researchops/multi_agent/agents/
+  researchops-memory-agent/
+  researchops-evidence-agent/
+  researchops-report-agent/
+```
+
+To enable them in a local DeerFlow runtime, copy those directories into:
+
+```text
+.deer-flow/users/default/agents/
+```
+
+The `multi_agent_plan` tool decides whether a task should stay single-agent or delegate to specialists. Memory and Evidence specialists return structured proposals only; memory writes remain centralized through ResearchOps tools and HITL policy.
 
 ## Run Focused Tests
 
