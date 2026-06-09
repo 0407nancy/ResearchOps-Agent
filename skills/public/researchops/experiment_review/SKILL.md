@@ -14,6 +14,7 @@ allowed-tools:
   - context_builder
   - report_writer
   - eval_runner
+  - session_trace_writer
   - ask_clarification
   - read_file
   - write_file

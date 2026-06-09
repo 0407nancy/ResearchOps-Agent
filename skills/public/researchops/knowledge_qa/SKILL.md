@@ -10,6 +10,7 @@ allowed-tools:
   - note_loader
   - context_builder
   - eval_runner
+  - session_trace_writer
   - ask_clarification
   - read_file
   - write_file

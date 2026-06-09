@@ -69,6 +69,11 @@ def test_researchops_tools_load_through_deerflow_registry():
                 group="researchops",
                 use="deerflow.researchops.tools.eval_runner:eval_runner_tool",
             ),
+            ToolConfig(
+                name="session_trace_writer",
+                group="researchops",
+                use="deerflow.researchops.tools.session_trace_tools:session_trace_writer_tool",
+            ),
         ],
     )
 
@@ -87,4 +92,5 @@ def test_researchops_tools_load_through_deerflow_registry():
     assert "context_builder" in names
     assert "report_writer" in names
     assert "eval_runner" in names
+    assert "session_trace_writer" in names
     assert "ask_clarification" in names
