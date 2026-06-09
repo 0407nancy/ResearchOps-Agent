@@ -39,6 +39,15 @@ class IntentResult(BaseModel):
     task_operation: str | None = None
     missing_slots: list[str] = Field(default_factory=list)
     risk_level: RiskLevel = RiskLevel.LOW
+    alternatives: list["IntentCandidate"] = Field(default_factory=list)
+    slot_evidence: dict[str, str] = Field(default_factory=dict)
+    classification_rationale: str = ""
+
+
+class IntentCandidate(BaseModel):
+    intent: ResearchIntent
+    confidence: float = Field(ge=0.0, le=1.0)
+    rationale: str = ""
 
 
 class HitlDecision(BaseModel):

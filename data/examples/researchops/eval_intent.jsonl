@@ -1,0 +1,10 @@
+{"id":"intent_mix_001","input":"把 OpenClaw RL 最近实验结果整理成周报","task":"intent","gold":{"intent":"PROGRESS_SUMMARY","project":"OpenClaw RL","time_range":"recent","output_format":"weekly_report"}}
+{"id":"intent_mix_002","input":"GRPO 实验失败了，帮我分析日志和下一步排查建议","task":"intent","gold":{"intent":"EXPERIMENT_REVIEW","output_format":"experiment_review"}}
+{"id":"intent_mix_003","input":"根据 ResearchOps-Agent 当前进展规划下周开发路线","task":"intent","gold":{"intent":"PROJECT_PLANNING","project":"ResearchOps-Agent","time_range":"next_week","output_format":"project_plan"}}
+{"id":"intent_mix_004","input":"OpenClaw RL 的 TODO 还有哪些","task":"intent","gold":{"intent":"TASK_TRACKING","project":"OpenClaw RL","task_operation":"read"}}
+{"id":"intent_mix_005","input":"解释一下 LangGraph checkpoint 和 interrupt 的区别","task":"intent","gold":{"intent":"KNOWLEDGE_QA","output_format":"answer"}}
+{"id":"intent_mix_006","input":"帮我把 DeerFlow 项目这周进展写成日报","task":"intent","gold":{"intent":"PROGRESS_SUMMARY","project":"DeerFlow","time_range":"this_week","output_format":"daily_report"}}
+{"id":"intent_mix_007","input":"这个项目怎么包装成简历项目更好","task":"intent","gold":{"intent":"PROJECT_PLANNING","output_format":"project_plan"}}
+{"id":"intent_mix_008","input":"把任务 A 标记一下","task":"clarification","gold":{"intent":"TASK_TRACKING","need_user_input":true,"missing_slots":["task_operation"]}}
+{"id":"intent_mix_009","input":"生成 ResearchOps-Agent 的正式周报","task":"clarification","gold":{"intent":"PROGRESS_SUMMARY","project":"ResearchOps-Agent","need_user_input":true,"missing_slots":["time_range"]}}
+{"id":"intent_mix_010","input":"帮我看看这个","task":"clarification","gold":{"intent":"KNOWLEDGE_QA","need_user_input":true,"missing_slots":[]}}

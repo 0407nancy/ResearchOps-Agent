@@ -1,0 +1,3 @@
+{"id":"context_001","input":"ResearchOps-Agent eval seed","task":"context","gold":{"project_id":"researchops_agent","memory_type":"ProjectMemory","relevant_refs":["eval:seed#L1-L3"]}}
+{"id":"context_002","input":"evaluation runner 下一步","task":"context","gold":{"project_id":"researchops_agent","memory_type":"TaskMemory","relevant_refs":["eval:seed#L4-L5"]}}
+{"id":"memory_001","input":"ResearchOps-Agent eval seed","task":"memory_recall","gold":{"project_id":"researchops_agent","memory_type":"ProjectMemory","memory_ids":[]}}

@@ -1,0 +1,4 @@
+{"id":"smoke_intent_001","input":"根据这周记录生成组会汇报","task":"intent","gold":{"intent":"PROGRESS_SUMMARY","time_range":"this_week","output_format":"meeting_prep"}}
+{"id":"smoke_clarify_001","input":"帮我整理 OpenClaw RL 的进展","task":"clarification","gold":{"intent":"PROGRESS_SUMMARY","need_user_input":true,"missing_slots":["time_range"]}}
+{"id":"smoke_task_001","input":"我今天完成了 intent 分类，但 memory store 还没做","task":"task_tracking","gold":{"intent":"TASK_TRACKING","task_updates":[{"title":"intent 分类","status":"done"},{"title":"memory store","status":"todo"}]}}
+{"id":"smoke_report_001","input":"把最近实验结果整理成周报","task":"report","gold":{"intent":"PROGRESS_SUMMARY","required_sections":["进展","问题与阻塞","下一步"],"min_evidence":1}}

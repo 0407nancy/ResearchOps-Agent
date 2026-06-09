@@ -14,6 +14,9 @@ def test_classifies_progress_summary_with_missing_time_range():
     assert result.output_format == "progress_summary"
     assert result.missing_slots == ["time_range"]
     assert result.risk_level == RiskLevel.LOW
+    assert result.slot_evidence["project"] == "OpenClaw RL"
+    assert "进展" in result.classification_rationale
+    assert result.alternatives
 
 
 def test_classifies_experiment_review_from_failure_language():
@@ -33,6 +36,8 @@ def test_classifies_project_planning():
     assert result.time_range == "next_week"
     assert result.output_format == "project_plan"
     assert result.missing_slots == []
+    assert result.slot_evidence["time_range"] == "下周"
+    assert result.alternatives[0].intent != result.intent
 
 
 def test_classifies_knowledge_qa():
@@ -51,6 +56,25 @@ def test_classifies_task_tracking_update():
     assert result.output_format == "task_update"
     assert result.missing_slots == []
     assert result.risk_level == RiskLevel.MEDIUM
+    assert result.slot_evidence["task_operation"] == "update"
+
+
+def test_classifier_exposes_alternatives_for_mixed_report_and_experiment_language():
+    result = classify_intent("把最近实验结果整理成周报")
+
+    assert result.intent == ResearchIntent.PROGRESS_SUMMARY
+    assert result.output_format == "weekly_report"
+    assert result.alternatives[0].intent == ResearchIntent.EXPERIMENT_REVIEW
+    assert result.alternatives[0].confidence >= 0.4
+    assert result.slot_evidence["time_range"] == "最近"
+
+
+def test_classifier_lowers_confidence_for_unknown_request():
+    result = classify_intent("帮我看看这个")
+
+    assert result.intent == ResearchIntent.KNOWLEDGE_QA
+    assert result.confidence < 0.65
+    assert "low evidence" in result.classification_rationale
 
 
 def test_intent_tool_returns_json():

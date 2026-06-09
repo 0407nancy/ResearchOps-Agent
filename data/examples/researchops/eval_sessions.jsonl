@@ -1,0 +1,2 @@
+{"id":"session_001","task":"session","turns":[{"user":"我今天完成了 intent 分类，但 memory store 还没做"},{"user":"把最近进展整理成周报"}],"gold":{"final_tasks":[{"title":"intent 分类","status":"done"},{"title":"memory store","status":"todo"}]}}
+{"id":"session_002","task":"session","turns":[{"user":"context builder 卡住了"},{"user":"我完成了 report writer"}],"gold":{"final_tasks":[{"title":"context builder","status":"blocked"},{"title":"report writer","status":"done"}]}}

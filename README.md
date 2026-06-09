@@ -89,6 +89,12 @@ From `backend/`:
 uv run python -c 'import json, tempfile; from pathlib import Path; from deerflow.researchops.evaluation.runner import run_eval_cases; result=run_eval_cases(cases_path="../data/examples/researchops/eval_queries.jsonl", work_dir=Path(tempfile.mkdtemp())); print(json.dumps({"total": result.total, "metrics": result.metrics}, ensure_ascii=False, indent=2))'
 ```
 
+Run the expanded Eval 2.0 suite:
+
+```bash
+uv run python -c 'import json, tempfile; from pathlib import Path; from deerflow.researchops.evaluation.runner import run_eval_suite; result=run_eval_suite(suite_dir="../data/examples/researchops", work_dir=Path(tempfile.mkdtemp())); print(json.dumps({"total": result.total, "metrics": result.metrics}, ensure_ascii=False, indent=2))'
+```
+
 Current 20-case benchmark output:
 
 ```json

@@ -1,0 +1,3 @@
+{"id":"evidence_001","input":"完成 intent 分类 [eval:seed#L1-L3]","task":"evidence","gold":{"claims":[{"text":"完成 intent 分类","support_status":"supported"}]}}
+{"id":"evidence_002","input":"完成了所有 multi-agent 功能","task":"evidence","gold":{"claims":[{"text":"完成了所有 multi-agent 功能","support_status":"unsupported"}]}}
+{"id":"evidence_003","input":"report writer 已经接入 evidence [eval:seed#L1-L3]","task":"evidence","gold":{"claims":[{"text":"report writer 已经接入 evidence","support_status":"supported"}]}}
