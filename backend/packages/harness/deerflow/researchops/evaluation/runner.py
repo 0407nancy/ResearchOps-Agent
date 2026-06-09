@@ -154,6 +154,13 @@ def _predict_memory_recall(case: dict[str, Any], memory_store: ResearchMemorySto
         project_id=gold.get("project_id"),
         limit=5,
     )
+    if not records:
+        records = memory_store.search_memory(
+            query="",
+            memory_type=gold.get("memory_type"),
+            project_id=gold.get("project_id"),
+            limit=5,
+        )
     return {"memory_ids": [record.id for record in records], "titles": [record.title for record in records]}
 
 
@@ -165,6 +172,13 @@ def _predict_context(case: dict[str, Any], memory_store: ResearchMemoryStore) ->
         project_id=gold.get("project_id"),
         limit=5,
     )
+    if not records:
+        records = memory_store.search_memory(
+            query="",
+            memory_type=gold.get("memory_type"),
+            project_id=gold.get("project_id"),
+            limit=5,
+        )
     retrieved_refs: list[str] = []
     for record in records:
         retrieved_refs.extend(record.evidence_refs)

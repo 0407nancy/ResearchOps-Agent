@@ -2,7 +2,9 @@ from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
 
+from deerflow.researchops.compression import compress_source_chunk
 from deerflow.researchops.memory_store import ResearchMemoryStore
+from deerflow.researchops.rerank import RetrievalCandidate, rerank_candidates
 from deerflow.researchops.schemas import (
     ContextPacket,
     EvidenceRef,
@@ -35,7 +37,11 @@ def build_context_packet(
 ) -> ContextPacket:
     normalized_intent = ResearchIntent(intent)
     store = memory_store or ResearchMemoryStore()
-    chunks = [_to_source_chunk(chunk) for chunk in source_chunks or []]
+    chunks = _prepare_source_chunks(
+        chunks=[_to_source_chunk(chunk) for chunk in source_chunks or []],
+        query=query,
+        project=project,
+    )
 
     memories: list[ResearchMemoryRecord] = []
     seen_ids: set[str] = set()
@@ -78,6 +84,32 @@ def _to_source_chunk(chunk: SourceChunk | Mapping) -> SourceChunk:
     if isinstance(chunk, SourceChunk):
         return chunk
     return SourceChunk.model_validate(dict(chunk))
+
+
+def _prepare_source_chunks(*, chunks: list[SourceChunk], query: str, project: str | None) -> list[SourceChunk]:
+    if not chunks:
+        return []
+    candidate_by_ref = {
+        chunk.source_ref: RetrievalCandidate(
+            ref=chunk.source_ref,
+            text=chunk.text,
+            kind="source",
+            project_id=chunk.metadata.get("project_id"),
+            evidence_refs=[chunk.source_ref],
+        )
+        for chunk in chunks
+    }
+    chunk_by_ref = {chunk.source_ref: chunk for chunk in chunks}
+    ranked = rerank_candidates(
+        query=query,
+        candidates=list(candidate_by_ref.values()),
+        project_id=project,
+        limit=len(chunks),
+    )
+    return [
+        compress_source_chunk(chunk_by_ref[candidate.ref], query=query, max_sentences=2)
+        for candidate in ranked
+    ]
 
 
 def _build_evidence_table(

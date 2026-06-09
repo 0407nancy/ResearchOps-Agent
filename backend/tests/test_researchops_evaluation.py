@@ -128,3 +128,14 @@ def test_run_eval_suite_loads_multiple_eval_files_and_reports_new_metrics(tmp_pa
     assert "context_recall" in result.metrics
     assert "claim_support_precision" in result.metrics
     assert "multi_turn_state_accuracy" in result.metrics
+
+
+def test_context_eval_falls_back_to_project_type_records_when_query_misses(tmp_path: Path):
+    (tmp_path / "eval_context.jsonl").write_text(
+        '{"id":"context_001","input":"evaluation runner 下一步","task":"context","gold":{"project_id":"researchops_agent","memory_type":"TaskMemory","relevant_refs":["eval:seed#L4-L5"]}}\n',
+        encoding="utf-8",
+    )
+
+    result = run_eval_suite(suite_dir=tmp_path, work_dir=tmp_path / "work")
+
+    assert result.metrics["context_recall"] == 1.0
