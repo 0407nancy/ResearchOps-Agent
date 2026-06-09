@@ -109,3 +109,26 @@ class ResearchMemoryRecord(BaseModel):
     created_at: str
     updated_at: str
     supersedes_id: str | None = None
+
+
+class SourceChunk(BaseModel):
+    source_ref: str
+    text: str
+    metadata: dict = Field(default_factory=dict)
+
+
+class EvidenceRef(BaseModel):
+    source_ref: str
+    kind: Literal["memory", "source", "task", "log"] = "source"
+    title: str | None = None
+    snippet: str | None = None
+
+
+class ContextPacket(BaseModel):
+    intent: ResearchIntent
+    project: str | None = None
+    time_range: str | None = None
+    memories: list[ResearchMemoryRecord] = Field(default_factory=list)
+    source_chunks: list[SourceChunk] = Field(default_factory=list)
+    tasks: list[ResearchMemoryRecord] = Field(default_factory=list)
+    evidence_table: list[EvidenceRef] = Field(default_factory=list)

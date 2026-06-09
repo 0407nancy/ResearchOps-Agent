@@ -7,6 +7,10 @@ allowed-tools:
   - researchops_resume_pending
   - memory_search
   - memory_writer
+  - note_loader
+  - task_reader
+  - task_writer
+  - context_builder
   - ask_clarification
   - read_file
   - write_file
@@ -39,8 +43,9 @@ If the user says "I completed A", mark A as `done`. If the user says "B is block
 1. `researchops_resume_pending`
 2. `classify_research_intent`
 3. `researchops_check_hitl`
-4. `memory_search`, `memory_writer`
-5. Future phases: `task_reader`, `task_writer`
+4. `note_loader`, `task_reader`
+5. `memory_search`, `memory_writer`, `task_writer`
+6. `context_builder`
 
 ## Output Structure
 
@@ -55,4 +60,4 @@ Task updates should cite the user statement or a source note.
 
 ## Memory Update Rules
 
-All task changes must be persisted through TaskMemory tools in later phases and recorded in session trace.
+All task changes must be persisted through TaskMemory tools and recorded in session trace.

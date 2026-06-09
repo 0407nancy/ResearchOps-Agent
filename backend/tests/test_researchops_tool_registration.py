@@ -34,6 +34,31 @@ def test_researchops_tools_load_through_deerflow_registry():
                 group="researchops",
                 use="deerflow.researchops.tools.memory_tools:memory_writer_tool",
             ),
+            ToolConfig(
+                name="note_loader",
+                group="researchops",
+                use="deerflow.researchops.tools.note_loader:note_loader_tool",
+            ),
+            ToolConfig(
+                name="log_parser",
+                group="researchops",
+                use="deerflow.researchops.tools.log_parser:log_parser_tool",
+            ),
+            ToolConfig(
+                name="task_reader",
+                group="researchops",
+                use="deerflow.researchops.tools.task_tools:task_reader_tool",
+            ),
+            ToolConfig(
+                name="task_writer",
+                group="researchops",
+                use="deerflow.researchops.tools.task_tools:task_writer_tool",
+            ),
+            ToolConfig(
+                name="context_builder",
+                group="researchops",
+                use="deerflow.researchops.tools.context_builder_tool:context_builder_tool",
+            ),
         ],
     )
 
@@ -45,4 +70,9 @@ def test_researchops_tools_load_through_deerflow_registry():
     assert "researchops_resume_pending" in names
     assert "memory_search" in names
     assert "memory_writer" in names
+    assert "note_loader" in names
+    assert "log_parser" in names
+    assert "task_reader" in names
+    assert "task_writer" in names
+    assert "context_builder" in names
     assert "ask_clarification" in names

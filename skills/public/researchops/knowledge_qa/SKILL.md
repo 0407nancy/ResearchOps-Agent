@@ -7,6 +7,8 @@ allowed-tools:
   - researchops_resume_pending
   - memory_search
   - memory_writer
+  - note_loader
+  - context_builder
   - ask_clarification
   - read_file
   - write_file
@@ -41,8 +43,9 @@ Ask clarification only when the question has multiple plausible interpretations.
 1. `researchops_resume_pending`
 2. `classify_research_intent`
 3. `read_file`, `grep`, `web_search`, `web_fetch`
-4. `memory_search`, `memory_writer`
-5. Future phases: `paper_parser`
+4. `note_loader`, `memory_search`, `memory_writer`
+5. `context_builder`
+6. Future phases: `paper_parser`
 
 ## Output Structure
 

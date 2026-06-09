@@ -7,6 +7,10 @@ allowed-tools:
   - researchops_resume_pending
   - memory_search
   - memory_writer
+  - note_loader
+  - task_reader
+  - task_writer
+  - context_builder
   - ask_clarification
   - read_file
   - write_file
@@ -42,8 +46,10 @@ If `time_range` is missing, call `researchops_check_hitl` and then `ask_clarific
 2. `classify_research_intent`
 3. `researchops_check_hitl`
 4. `read_file`, `grep`, `ls`
-5. `memory_search`, `memory_writer`
-6. Future phases: `note_loader`, `report_writer`
+5. `note_loader`, `task_reader`
+6. `memory_search`, `memory_writer`, `task_writer`
+7. `context_builder`
+8. Future phases: `report_writer`
 
 ## Output Structure
 

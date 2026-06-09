@@ -7,6 +7,10 @@ allowed-tools:
   - researchops_resume_pending
   - memory_search
   - memory_writer
+  - note_loader
+  - task_reader
+  - task_writer
+  - context_builder
   - ask_clarification
   - read_file
   - write_file
@@ -40,8 +44,9 @@ If multiple projects match, ask clarification and preserve the original intent.
 1. `researchops_resume_pending`
 2. `classify_research_intent`
 3. `researchops_check_hitl`
-4. `memory_search`, `memory_writer`
-5. Future phases: `task_reader`, `task_writer`
+4. `note_loader`, `task_reader`
+5. `memory_search`, `memory_writer`, `task_writer`
+6. `context_builder`
 
 ## Output Structure
 

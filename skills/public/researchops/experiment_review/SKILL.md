@@ -7,6 +7,11 @@ allowed-tools:
   - researchops_resume_pending
   - memory_search
   - memory_writer
+  - note_loader
+  - log_parser
+  - task_reader
+  - task_writer
+  - context_builder
   - ask_clarification
   - read_file
   - write_file
@@ -41,8 +46,9 @@ If the project or experiment target is ambiguous, ask clarification through the 
 2. `classify_research_intent`
 3. `researchops_check_hitl`
 4. `read_file`, `grep`, `ls`
-5. `memory_search`, `memory_writer`
-6. Future phases: `log_parser`
+5. `note_loader`, `log_parser`
+6. `memory_search`, `memory_writer`, `task_writer`
+7. `context_builder`
 
 ## Output Structure
 
@@ -58,4 +64,4 @@ Claims about metrics, errors, and failed steps must cite logs or experiment memo
 
 ## Memory Update Rules
 
-Save durable failure reasons, metrics, and follow-up actions as ExperimentMemory and TaskMemory in later phases.
+Save durable failure reasons, metrics, and follow-up actions as ExperimentMemory and TaskMemory.

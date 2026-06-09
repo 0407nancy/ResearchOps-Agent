@@ -170,6 +170,24 @@ class ResearchMemoryStore:
             supersedes_id=record.supersedes_id,
         )
 
+    def list_tasks(
+        self,
+        *,
+        project_id: str | None = None,
+        status: TaskStatus | str | None = None,
+        limit: int = 50,
+    ) -> list[ResearchMemoryRecord]:
+        tasks = self.search_memory(
+            query="",
+            memory_type=MemoryType.TASK,
+            project_id=project_id,
+            limit=limit,
+        )
+        if status is None:
+            return tasks
+        normalized_status = TaskStatus(status).value
+        return [task for task in tasks if task.content.get("status") == normalized_status]
+
     def get_memory(self, memory_id: str) -> ResearchMemoryRecord:
         with self._connect() as conn:
             row = conn.execute("SELECT * FROM research_memory WHERE id = ?", (memory_id,)).fetchone()
@@ -260,4 +278,3 @@ class ResearchMemoryStore:
             updated_at=row["updated_at"],
             supersedes_id=row["supersedes_id"],
         )
-
